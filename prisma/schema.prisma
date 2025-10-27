@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String    @id @default(uuid())
+  firstName   String
+  email       String    @unique @default("E-mail indisponível")
+  username    String    @unique
+  password    String
+  xp          Int       @default(0)
+  profileUrl  String    @default("https://i.pinimg.com/236x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg")
+  insights    Insights?
+  createdAt DateTime @default(now())
+}
+
+model Insights {
+  id                 String   @id @default(uuid())
+  userId             String   @unique
+  totalTextRead      Int      @default(0)
+  readingTimeSeconds Int      @default(0)
+  user               User     @relation(fields: [userId], references: [id])
+}
+
