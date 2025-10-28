@@ -3,7 +3,7 @@ Aqui está algumas orientações:
 ## Download do Repositório
 Para instalar o projeto use no teminal de vocês (escolham aonde rodar esse comando, se na área de trabalho e outra pasta...)
 ```bash
-git clone url
+git clone https://github.com/Kamado8421/facilita-linguagens.git
 ```
 ⚠️ Se ocorrer algum erro de autenticação, busquem no YouTube como configurar chave ssh no github pelo Windows ou Linux e me avisem.
 (É uma chave que garantem que você podem fazer alterações no projeto). Se for um erro diferente, me mandem.
