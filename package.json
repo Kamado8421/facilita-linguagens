@@ -6,10 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "create-user": "node ./test/create-user.js"
   },
   "dependencies": {
-    "@prisma/client": "^6.15.0",
+    "@prisma/client": "^6.18.0",
     "bcrypt": "^6.0.0",
     "dotenv": "^17.2.3",
     "lucide-react": "^0.548.0",

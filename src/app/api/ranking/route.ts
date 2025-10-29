@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
       // Ordenar os usuários por XP em ordem decrescente
       const ranking = users.sort((a: any, b: any) => b.xp - a.xp);
 
-      return Response.json({ ranking: ranking }, { status: 200 });
+      return Response.json(ranking, { status: 200 });
    } catch (error) {
       console.error("Erro no Ranking ->", error);
       return Response.json({ message: 'Erro interno' }, { status: 500 });
