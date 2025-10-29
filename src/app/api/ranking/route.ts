@@ -1,30 +1,31 @@
 import { PLATAFORM_SECRET_KEY } from "@/src/constants";
 import { NextRequest } from "next/server";
+import { prisma } from '@/src/lib/prisma';
 
 export async function GET(req: NextRequest) {
-    const query = req.nextUrl.searchParams;
-    const PLATAFORM_KEY = query.get('key');
+   try {
+      const query = req.nextUrl.searchParams;
+      const PLATAFORM_KEY = query.get('key');
 
-    if(PLATAFORM_KEY !== PLATAFORM_SECRET_KEY){
-        return Response.json({message: 'Acesso Negado'}, {status: 400})
-    }
+      if (PLATAFORM_KEY !== PLATAFORM_SECRET_KEY) {
+         return Response.json({ message: 'Acesso Negado' }, { status: 400 });
+      }
 
-    // Vamos botar a lógica de ranqueamento pra entregar a lista para o front-end
-    /*
-        vai ser simples, só retornar uma lista de uma lista/array de objetos do tipo:
-        
-        [
-            {
-                username: string,
-                id: string,
-                xp: number
-            },
-        ] 
+      // Modificar consulta para retornar apenas id, username e xp
+      const users = await prisma.user.findMany({
+         select: {
+            id: true,
+            username: true,
+            xp: true
+         }
+      });
 
-        a lista deve ser ordenada do maior xp para o menor.
-        Vamos ter que adicionar uns usuários fakes no banco pra testar.
-    */
+      // Ordenar os usuários por XP em ordem decrescente
+      const ranking = users.sort((a: any, b: any) => b.xp - a.xp);
 
-
-    return Response.json({message: 'Ranking...'}, {status: 200})
+      return Response.json({ ranking: ranking }, { status: 200 });
+   } catch (error) {
+      console.error("Erro no Ranking ->", error);
+      return Response.json({ message: 'Erro interno' }, { status: 500 });
+   }
 }
