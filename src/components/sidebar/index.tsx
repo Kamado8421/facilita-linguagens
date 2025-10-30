@@ -16,7 +16,7 @@ export default function Sidebar() {
             <div className="h-px w-[90%] bg-white mt-2"></div>
             <div className=" p-5">vamos botar os links...</div>
             <div className="relative flex-1 w-full pl-5">
-                <LogoutButton titulo="Alguma cooida" algo="algo" />                
+                <LogoutButton />                
             </div>
         </div>  
     )
