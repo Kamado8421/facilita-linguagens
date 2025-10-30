@@ -11,6 +11,7 @@ export default function LandingPage() {
   }
 
   if (!user) return (
+    // faz a tela aqui dentro dessa div. O resto é configuração da página que fiz pra não ser acessada enqando o usuário tiver logado
     <div>
       Tela inicial
       <br />
