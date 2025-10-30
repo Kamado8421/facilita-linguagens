@@ -14,6 +14,14 @@ Esse comando gera uma pasta chamada `node_modules`
 npm install
 ```
 
+## Configuração do Prisma
+Primeiro, renomeie o arquivo `env.exemple` para `.env`. Após, execute esses comandos:
+Crie uma Client do prisma
+
+```bash 
+npx prisma generate
+```
+
 ## Rodar o projeto
 ```bash
 npm run dev
