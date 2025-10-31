@@ -1,6 +1,10 @@
 @import "tailwindcss";
 
+* {
+    transition: .3s;
+}
+
 .tag {
-    color: orange
+    color: #00000059
 }
 
