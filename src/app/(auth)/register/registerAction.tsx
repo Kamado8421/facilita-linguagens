@@ -1,6 +1,7 @@
 "use server";
 import { prisma } from "@/src/lib/prisma";
 import bcrypt from "bcrypt";
+import { URLS_PROFILE_DEFAULT } from "@/src/constants";
 
 export default async function registerAction(
   _prevState: any,
@@ -37,9 +38,11 @@ export default async function registerAction(
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
+    const ulrRandom = URLS_PROFILE_DEFAULT[Math.floor(Math.random() * URLS_PROFILE_DEFAULT.length)];
+      
     const userCreated = await prisma.user.create({
       data: {
+        profileUrl: ulrRandom,
         firstName: firstName + " " + lastName,
         username,
         password: hashedPassword,
