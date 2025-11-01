@@ -3,6 +3,14 @@ import 'dotenv'
 export const PLATAFORM_SECRET_KEY = process.env.PLATAFORM_SECRET_KEY!
 
 export const URLS_PROFILE_DEFAULT = [
-    "https://files.catbox.moe/bwz6uw.png", // original
-    "https://files.catbox.moe/c7vd5x.png", // recorte
+    "https://files.catbox.moe/bwz6uw.png", 
+    "https://files.catbox.moe/c7vd5x.png",
+    "https://files.catbox.moe/n7vt7d.png",
+    "https://files.catbox.moe/kniw3q.png",
+    "https://files.catbox.moe/9r6vvg.png",
+    "https://files.catbox.moe/497o28.png",
+    "https://files.catbox.moe/9p5b6x.png",
+    "https://files.catbox.moe/lzhwp1.png",
+    "https://files.catbox.moe/lzhwp1.png",
+    "https://files.catbox.moe/ep69n2.png"
 ]
