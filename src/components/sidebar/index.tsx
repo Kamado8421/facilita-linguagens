@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Logo from '@/src/assets/logo.svg';
 import LogoutButton from "./logoutButton";
-import { CircleUserRoundIcon, HandshakeIcon, HomeIcon, TrophyIcon } from "lucide-react";
+import { BookMarkedIcon, CircleUserRoundIcon, HandshakeIcon, HomeIcon, TrophyIcon } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 
 type Route = {
@@ -11,11 +11,12 @@ type Route = {
     path: string;
 };
 
-const routes: Route[] = [
+export const MENU_ROUTES: Route[] = [
     { title: 'Início', Icon: HomeIcon, path: '/dashboard' },
     { title: 'Perfil', Icon: CircleUserRoundIcon, path: '/dashboard/profile' },
+    { title: 'Leitura', Icon: BookMarkedIcon, path: '/dashboard/select-reading' },
     { title: 'Campanha', Icon: TrophyIcon, path: '/dashboard/ranking' },
-    { title: 'Avalie-nos', Icon: HandshakeIcon, path: '/' },
+    { title: 'Fazer Feedback', Icon: HandshakeIcon, path: '/' },
 
 ];
 
@@ -26,7 +27,7 @@ export default function Sidebar() {
             <div className="h-px w-[90%] bg-white mt-2"></div>
             <div className="p-5 w-full">
                 <ul>
-                    {routes.map(({ title, Icon, path }, i) => (
+                    {MENU_ROUTES.map(({ title, Icon, path }, i) => (
                         <li key={i} className="hover:bg-blue-400 p-2 rounded-md mb-2">
                             <a href={path} className="flex text-white text-[18px] items-center gap-2">
                                 <Icon />
