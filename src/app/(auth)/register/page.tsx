@@ -13,7 +13,7 @@ export default function Register() {
   });
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-r from-[hsl(209,61%,45%)] to-[#4390d8] py-4 sm:py-8">
+    <div className="min-h-screen w-full bg-gradient-to-r from-[#1B70E2] to-[#3C7998] py-4 sm:py-8">
       <TopAuth />
 
       <form

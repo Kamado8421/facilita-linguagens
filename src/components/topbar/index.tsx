@@ -15,13 +15,15 @@ export default async function TopBar() {
                     <span><strong>{session?.user.firstName}</strong></span>
                     <span className="text-gray-500">XP: {session?.user.xp}</span>
                 </div>
-                <Image
-                    src={session?.user.profileUrl!}
-                    alt=""
-                    width={50}
-                    height={50}
-                    style={{ objectFit: "cover", borderRadius: '50%' }}
-                />
+                <a href="/dashboard/profile" target="_self">
+                    <Image
+                        src={session?.user.profileUrl!}
+                        alt=""
+                        width={50}
+                        height={50}
+                        style={{ objectFit: "cover", borderRadius: '50%' }}
+                    />
+                </a>
             </div>
         </div>
     )
