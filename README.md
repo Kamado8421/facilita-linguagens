@@ -21,6 +21,15 @@ Crie uma Client do prisma
 ```bash 
 npx prisma generate
 ```
+Para subir/criar as tabelas do banco de dados:
+```bash 
+npx prisma migrate dev --name init
+```
+se esse comando der erro, use:
+```bash 
+npx prisma migrate dev 
+```
+Após ele, aparecerá uma linha para digitar um nome, escreva o nome da sua branch.
 
 ## Rodar o projeto
 ```bash
