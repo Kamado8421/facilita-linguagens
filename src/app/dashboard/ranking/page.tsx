@@ -4,11 +4,6 @@ const ranking = [
     {id: '3-0-0', username: 'luhdev', xp: 1000},
 ] 
 
-// a lista de ranking que o backend envia é nesse mesmo formato (do maior xp ao menor)
-// vai ser necessário trabalhar com renderização de lista usando 
-// o método .map();. Ele funciona igual um for(), é um laço de repetição
-// que percorre cada item da lista e renderiza uma tag html
-
 export default function RankingPage() {
     return (
         <div className="m-3 sm:m-7 mt-4 sm:mt-6">
