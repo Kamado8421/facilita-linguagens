@@ -29,7 +29,6 @@ export default function FormChangePassword({ setIsOpen }: { setIsOpen: (value: b
                     className="w-full outline-none bg-gray-200 p-2 rounded-md mb-3"
                 />
 
-
                 {state?.message && (
                     <p className={`text-sm mb-2 ${state.success ? "text-green-600" : "text-red-600"}`}>
                         {state.message}
@@ -40,6 +39,7 @@ export default function FormChangePassword({ setIsOpen }: { setIsOpen: (value: b
                     disabled={isPending}
                     title={isPending ? "Alterando..." : "Alterar minha senha"}
                 />
+                <button onClick={() => setIsOpen(false)} className="mt-3 w-full text-center text-red-400">Sair</button>
             </form>
         </PopUp>
     );

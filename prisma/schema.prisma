@@ -32,6 +32,11 @@ model TextualGenre {
   name String   @unique
 }
 
-
+model GameMatch {
+  id               String   @id @default(uuid())
+  idText           String
+  idTextualGenre   String
+  createdAt        DateTime @default(now())
+}
 
 

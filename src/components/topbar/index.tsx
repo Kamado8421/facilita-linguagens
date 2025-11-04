@@ -2,6 +2,7 @@
 
 import { auth } from "@/src/lib/auth";
 import Image from "next/image";
+import MobileSidebar from "../mobile-sidebar";
 
 export default async function TopBar() {
 
@@ -9,7 +10,8 @@ export default async function TopBar() {
 
     return (
         <div className="w-full p-2 flex items-center justify-between pl-5 pr-5">
-            <h1 className="font-semibold text-blue-500 text-[14px]">Projeto de Inovação <br /> IFMA - Campus Itapecuru Mirim</h1>
+            <h1 className="font-semibold text-blue-500 text-[14px] md:flex hidden">Projeto de Inovação <br /> IFMA - Campus Itapecuru Mirim</h1>
+            <MobileSidebar />
             <div className="flex gap-2.5 items-center">
                 <div className="flex flex-col items-end">
                     <span><strong>{session?.user.firstName}</strong></span>

@@ -11,6 +11,7 @@
 !.yarn/versions
 
 /prisma/migrations
+prisma/sqlite-dev.db
 
 # testing
 /coverage
