@@ -1,32 +1,44 @@
 'use client';
 
 import Button from "@/src/components/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { fetchCreateGameMatch, fetchGenres } from "./fetchs";
 
-const genres = [
-    { id: '1', name: 'Conto' },
-    { id: '2', name: 'Crônica' },
-    { id: '3', name: 'Poema' },
-    { id: '4', name: 'Artigo de Opinião' },
-    { id: '5', name: 'Carta' },
-];
+type GenreType = {
+    id: string,
+    name: string
+}
 
 export default function SelectReadingPage() {
     const [selectTypeText, setSelectTypeText] = useState<'random-genre' | 'specific-genre'>('random-genre');
     const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
 
-    const handleStartReading = () => {
+    const [genres, setGenres] = useState<GenreType[]>([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const loadGenres = async () => {
+            const data = await fetchGenres();
+            setGenres(data);
+        }
+        loadGenres();
+    }, []);
+
+    const handleStartReading = async () => {
         if (selectTypeText === 'specific-genre' && !selectedGenre) {
             alert("Por favor, selecione um gênero textual.");
             return;
         }
 
-        if (selectTypeText === 'random-genre') {
-            const randomGenre = genres[Math.floor(Math.random() * genres.length)];
-            console.log("Gênero aleatório selecionado:", randomGenre);
-        } else {
-            console.log("Gênero específico selecionado:", selectedGenre);
+        const typeText = selectTypeText === 'random-genre' ? 'random' : selectedGenre!;
+
+        setLoading(true);
+        const gameMatch = await fetchCreateGameMatch(typeText);
+
+        if(gameMatch.success){
+            alert(gameMatch.data?.idText)
         }
+        setLoading(false);
     };
 
     return (
@@ -73,6 +85,8 @@ export default function SelectReadingPage() {
                 <Button
                     title="Iniciar Leitura"
                     style={{ padding: 15 }}
+                    disabled={loading}
+                    loading={loading}
                     action={handleStartReading}
                 />
             </div>

@@ -4,10 +4,13 @@ import TopAuth from "@/src/components/top-auth";
 import { CircleUserRound } from "lucide-react";
 import { useActionState, useEffect } from "react";
 import loginAction from "./loginAction";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Login() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const username = searchParams.get('username')
+
   const [state, formAction, isPending] = useActionState(loginAction, {
     success: false,
     message: "",
@@ -48,6 +51,7 @@ export default function Login() {
               <input
                 type="text"
                 name="username"
+                defaultValue={username || ''}
                 placeholder="Nome de usuário"
                 required
                 className="w-full bg-transparent outline-none"

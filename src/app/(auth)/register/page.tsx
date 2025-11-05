@@ -2,7 +2,7 @@
 
 import TopAuth from "@/src/components/top-auth";
 import { CircleUserRound } from "lucide-react";
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import registerAction from "./registerAction";
 import SuperScreen from "@/src/components/super-screen";
 
@@ -11,6 +11,8 @@ export default function Register() {
     message: "",
     success: false,
   });
+
+  const [username, setUsername] = useState('');
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-r from-[#1B70E2] to-[#3C7998] py-4 sm:py-8">
@@ -38,6 +40,7 @@ export default function Register() {
               <input
                 type="text"
                 name="username"
+                onChange={(e) => setUsername(e.target.value)}
                 placeholder="Crie um nome de usuário"
                 required
                 className="w-full bg-transparent outline-none"
@@ -100,7 +103,7 @@ export default function Register() {
                 <br />
                 <span className="text-white">Você acaba de criar sua conta no <strong>Facilita Linguagens</strong></span>
                 <br />
-                <a href="/login" className="p-2 pl-3 pr-3 bg-blue-600 text-white font-semibold rounded-md">Clique aqui e entre nela</a>
+                <a href={`/login?username=${username}`} className="p-2 pl-3 pr-3 bg-blue-600 text-white font-semibold rounded-md">Clique aqui e entre nela</a>
             </SuperScreen>
           )}
 
