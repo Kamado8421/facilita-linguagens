@@ -6,9 +6,29 @@ export async function GET(req: NextRequest) {
    try {
       const query = req.nextUrl.searchParams;
       const PLATAFORM_KEY = query.get('key');
+      const userId = query.get('userId')
 
       if (PLATAFORM_KEY !== PLATAFORM_SECRET_KEY) {
          return Response.json({ message: 'Acesso Negado' }, { status: 400 });
+      }
+
+
+      if (userId) {
+         const user = await prisma.user.findFirst({
+            where: {
+               id: userId
+            }
+         });
+
+         if (user) {
+            return Response.json({
+               id: user.id,
+               username: user.username,
+               xp: user.xp
+            }, { status: 200 });
+         }
+
+         return Response.json({ message: 'User not Found' }, { status: 404 });
       }
 
       // Modificar consulta para retornar apenas id, username e xp

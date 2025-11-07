@@ -30,6 +30,7 @@ model Insights {
 model TextualGenre {
   id   String   @id @default(uuid())
   name String   @unique
+  texts Text[]
 }
 
 model GameMatch {
@@ -39,4 +40,11 @@ model GameMatch {
   createdAt        DateTime @default(now())
 }
 
-
+model Text {
+  id             String        @id @default(uuid())
+  title          String
+  content        String
+  author         String?
+  textualGenreId String
+  textualGenre   TextualGenre  @relation(fields: [textualGenreId], references: [id])
+}
