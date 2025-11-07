@@ -8,6 +8,7 @@ export default function RankingPage() {
     return (
         <div className="m-3 sm:m-7 mt-4 sm:mt-6">
             <header className="mb-4">
+                <br />
                 <h1 className="text-2xl sm:text-4xl text-blue-500 font-bold mb-3">Ranking Geral</h1>
                 <p className="mb-1.5 text-gray-600 text-sm sm:text-base">
                     Mostre o quanto você está empenhado para as outras pessoas. Faça leituras e <br className="hidden sm:block" />
@@ -15,6 +16,8 @@ export default function RankingPage() {
                 </p>
             </header>
             <main>
+                <br />
+                <br />
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 mb-2">
                     <div className="bg-gray-50 text-green-600 py-2 w-full sm:w-62 sm:mr-2.5 rounded-2xl text-center font-bold text-sm sm:text-base">
                         Sua posição: 10°

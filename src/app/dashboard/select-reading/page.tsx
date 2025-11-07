@@ -3,11 +3,8 @@
 import Button from "@/src/components/button";
 import { useEffect, useState } from "react";
 import { fetchCreateGameMatch, fetchGenres } from "./fetchs";
-
-type GenreType = {
-    id: string,
-    name: string
-}
+import { GenreType } from "@/src/types";
+import { redirect } from "next/navigation";
 
 export default function SelectReadingPage() {
     const [selectTypeText, setSelectTypeText] = useState<'random-genre' | 'specific-genre'>('random-genre');
@@ -35,10 +32,15 @@ export default function SelectReadingPage() {
         setLoading(true);
         const gameMatch = await fetchCreateGameMatch(typeText);
 
-        if(gameMatch.success){
-            alert(gameMatch.data?.idText)
+        if (gameMatch.success) {
+            // alert(gameMatch.data?.idText)
+            // alert(gameMatch.data?.id)
+            setLoading(false);
+            return redirect(`/dashboard/reading?game-match-id=${gameMatch.data?.id}`)
+        } else {
+            setLoading(false);
+            alert('Estamos sem texto do gênero :(')
         }
-        setLoading(false);
     };
 
     return (
