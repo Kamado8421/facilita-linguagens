@@ -1,9 +1,6 @@
 'use client';
 
 import DashboardBoxIcon from "@/src/components/dashboard-box-icons";
-import MainPageIconBook from "@/src/components/main-page-icon-book";
-import MainPageIconClock from "@/src/components/main-page-icon-clock";
-import MainPageIconTag from "@/src/components/main-page-icon-tag";
 import { DivideSquare } from "lucide-react";
 
 export default function Dashboard() {
