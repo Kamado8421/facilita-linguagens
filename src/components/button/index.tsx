@@ -10,6 +10,5 @@ export default function Button({ style, title, bgColor, action, disabled = false
             >
             {loading ? titleLoading : title}
         </button>
-
     )
 }
