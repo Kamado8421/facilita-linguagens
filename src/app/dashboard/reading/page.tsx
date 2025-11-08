@@ -163,7 +163,7 @@ export default function ReadingPage() {
                     </span>
 
                     <div className="space-y-5 text-justify text-gray-800 leading-relaxed">
-                        <p>{content}</p>
+                        <pre className="font-serif text-center">{paused ? 'Pausado':content}</pre>
                     </div>
                 </div>
                 <div className="bg-white shadow-lg rounded-lg w-full md:w-[60%] lg:w-[50%] p-10 mt-2">

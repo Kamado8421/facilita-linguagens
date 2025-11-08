@@ -15,7 +15,7 @@ export default function LandingPage() {
   if (!user) return (
     // faz a tela aqui dentro dessa div. O resto é configuração da página que fiz pra não ser acessada enqando o usuário tiver logado
     <div className="min-h-screen w-full bg-gradient-to-r from-[#1B70E2] to-[#3C7998] py-4 sm:py-8 text-white">
-      <nav>
+      <nav className="md:pl-12 md:pr-12">
         <TopAuth/>
         <div className="flex justify-center sm:block gap-2 sm:gap-0 mb-4 sm:mb-0">
           <a href="/register" 
@@ -23,7 +23,7 @@ export default function LandingPage() {
             Cadastrar-se
           </a>
           <a href="/login" 
-            className="bg-blue-800 font-bold text-center border rounded px-8 sm:px-14 py-2 sm:mr-10 sm:float-end sm:relative sm:bottom-13 text-sm sm:text-base">
+            className="bg-blue-600 font-bold text-center border rounded px-8 sm:px-14 py-2 sm:mr-10 sm:float-end sm:relative sm:bottom-13 text-sm sm:text-base">
             Entrar
           </a>
         </div>
@@ -37,7 +37,7 @@ export default function LandingPage() {
           <div className="font-bold text-2xl sm:text-4xl mb-6 leading-8 sm:leading-13 tracking-wide sm:text-center">
             Sonhando com sua<br/>
             <strong className="text-green-400">APROVAÇÃO</strong> no maior Exame<br/>
-            Nacional do <strong className="text-orange-400">Brasil?</strong>
+            Nacional do <strong className="text-yellow-400">Brasil?</strong>
           </div>
 
           <p className="tracking-wider leading-5 text-sm sm:text-base sm:text-center sm:max-w-2xl">
@@ -47,7 +47,7 @@ export default function LandingPage() {
           </p>
           <div className="flex justify-center mt-8 sm:mt-10">
             <a href="/register" 
-            className="bg-blue-800 font-bold text-center border rounded px-8 sm:px-17 py-3 sm:py-4 text-sm sm:text-base">
+            className="bg-blue-600 font-bold text-center border rounded px-8 sm:px-17 py-3 sm:py-4 text-sm sm:text-base">
               Criar minha conta agora mesmo!
             </a>
           </div>
