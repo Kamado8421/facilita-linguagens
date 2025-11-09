@@ -2,6 +2,8 @@ import 'dotenv'
 
 export const PLATAFORM_SECRET_KEY = process.env.PLATAFORM_SECRET_KEY!;
 export const APP_DOMAIN = process.env.APP_DOMAIN || 'http://localhost:3000';
+export const ADMIN_USER = process.env.ADMIN_USER!
+export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD!
 
 export const URLS_PROFILE_DEFAULT = [
     "https://files.catbox.moe/bwz6uw.png", 
