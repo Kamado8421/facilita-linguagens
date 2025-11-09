@@ -5,28 +5,8 @@ import { createTextAction } from "./textAction";
 import { fetchGenres } from "../../dashboard/select-reading/fetchs";
 import { GenreType } from "@/src/types";
 
-type TextFormState = {
-  success: boolean;
-  message: string;
-};
-
 export default function TextsPage() {
-  // --- Controle de login simples ---
-  const [authenticated, setAuthenticated] = useState(false);
-  const [credentials, setCredentials] = useState({ user: "", password: "" });
-  const [error, setError] = useState("");
   const [genres, setGenres] = useState<GenreType[]>([]);
-
-  function handleLogin(e: React.FormEvent) {
-    e.preventDefault();
-    if (credentials.user === "admin" && credentials.password === "admin") {
-      setAuthenticated(true);
-      setError("");
-    } else {
-      setError("Usuário ou senha incorretos.");
-    }
-  }
-
   const [state, formAction] = useActionState(createTextAction, { success: false, message: "" });
 
   useEffect(() => {
@@ -37,45 +17,7 @@ export default function TextsPage() {
     loadGenres();
   }, []);
 
-  // --- Tela de login ---
-  if (!authenticated) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <form
-          onSubmit={handleLogin}
-          className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-sm flex flex-col gap-3"
-        >
-          <h2 className="text-xl font-semibold text-center">Acesso Restrito</h2>
 
-          <input
-            type="text"
-            placeholder="Usuário"
-            className="border rounded-lg p-2"
-            value={credentials.user}
-            onChange={(e) => setCredentials({ ...credentials, user: e.target.value })}
-          />
-          <input
-            type="password"
-            placeholder="Senha"
-            className="border rounded-lg p-2"
-            value={credentials.password}
-            onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-          />
-
-          {error && <p className="text-red-500 text-sm text-center">{error}</p>}
-
-          <button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 rounded-lg"
-          >
-            Entrar
-          </button>
-        </form>
-      </div>
-    );
-  }
-
-  // --- Tela principal ---
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10">
       <h1 className="text-2xl font-bold mb-6">Cadastro de Texto</h1>

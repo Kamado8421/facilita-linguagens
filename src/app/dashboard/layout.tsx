@@ -14,7 +14,7 @@ export default async function LayoutDashboard({ children, }: Readonly<{ children
     return (
         <div className="flex h-full justify-between items-center">
             <Sidebar />
-            <div className="bg-gray-200 w-full h-full overflow-y-auto">
+            <div className="bg-gray-50 w-full h-full overflow-y-auto">
                 <TopBar />
                 {children}
             </div>

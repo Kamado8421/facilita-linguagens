@@ -19,7 +19,7 @@ export default async function TopBar() {
                 </div>
                 <a href="/dashboard/profile" target="_self">
                     <Image
-                        src={session?.user.profileUrl!}
+                        src={session?.user.profileUrl! /* @typescript-eslint/no-non-null-asserted-optional-chain */}
                         alt=""
                         width={50}
                         height={50}
