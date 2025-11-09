@@ -8,43 +8,50 @@ datasource db {
 }
 
 model User {
-  id          String    @id @default(uuid())
-  firstName   String
-  email       String    @unique @default(cuid())
-  username    String    @unique
-  password    String
-  xp          Int       @default(0)
-  profileUrl  String    @default("https://i.pinimg.com/236x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg")
-  insights    Insights?
-  createdAt DateTime @default(now())
+  id         String    @id @default(uuid())
+  firstName  String
+  email      String    @unique @default(cuid())
+  username   String    @unique
+  password   String
+  xp         Int       @default(0)
+  profileUrl String    @default("https://i.pinimg.com/236x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg")
+  insights   Insights?
+  createdAt  DateTime  @default(now())
 }
 
 model Insights {
-  id                 String   @id @default(uuid())
-  userId             String   @unique
-  totalTextRead      Int      @default(0)
-  readingTimeSeconds Int      @default(0)
-  user               User     @relation(fields: [userId], references: [id])
+  id                 String @id @default(uuid())
+  userId             String @unique
+  totalTextRead      Int    @default(0)
+  readingTimeSeconds Int    @default(0)
+  user               User   @relation(fields: [userId], references: [id])
 }
 
 model TextualGenre {
-  id   String   @id @default(uuid())
-  name String   @unique
+  id    String @id @default(uuid())
+  name  String @unique
   texts Text[]
 }
 
 model GameMatch {
-  id               String   @id @default(uuid())
-  idText           String
-  idTextualGenre   String
-  createdAt        DateTime @default(now())
+  id             String   @id @default(uuid())
+  idText         String
+  idTextualGenre String
+  createdAt      DateTime @default(now())
 }
 
 model Text {
-  id             String        @id @default(uuid())
+  id             String       @id @default(uuid())
   title          String
   content        String
   author         String?
   textualGenreId String
-  textualGenre   TextualGenre  @relation(fields: [textualGenreId], references: [id])
+  textualGenre   TextualGenre @relation(fields: [textualGenreId], references: [id])
+}
+
+model InsightsGenres {
+  id            String @id @default(uuid())
+  user          String
+  genreId       String
+  totalTextRead Int    @default(0)
 }
