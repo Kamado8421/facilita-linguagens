@@ -52,25 +52,73 @@ export async function fetchDeleteGameMatch(gameMatchId: string) {
     }
 }
 
-export async function fetchFinishReading(gameMatchId: string){
+export async function fetchUpdateGameMatch(gameMatchId: string) {
+    try {
+        const gameMatch = await prisma.gameMatch.findFirst({
+            where: {
+                id: gameMatchId
+            }
+        });
+
+        if (!gameMatch) {
+            throw new Error('INVALID_GAME_MATCH_FOR_UPDATE');
+        }
+
+        const texts = await prisma.text.findMany({
+            where: { textualGenreId: gameMatch.idTextualGenre },
+            select: { id: true },
+        });
+
+        if (texts.length === 0) {
+            return { success: false };
+        }
+
+        const randomText = texts[Math.floor(Math.random() * texts.length)];
+
+        await prisma.gameMatch.update({
+            where: {
+                id: gameMatch.id
+            },
+            data: {
+                idText: randomText.id
+            }
+        })
+
+        return { success: true, textId: randomText.id }
+
+    } catch (error) {
+        console.log('Erro ao arualizar game match', error);
+        return { success: false };
+    }
+}
+
+export async function fetchFinishReading(gameMatchId: string, userXp: number) {
     try {
         await fetchDeleteGameMatch(gameMatchId);
         const session = await auth();
 
-        const randomXp = Math.floor(Math.random() * (25 - 10 + 1)) + 10;
-
-        const user = await prisma.user.update({
+        console.log('Buscando ID de usuário')
+        const user = await prisma.user.findUnique({
             where: {
-                id: session?.user.id!
-            }, 
-            data: {
-                xp: randomXp
+                id: session?.user.id
             }
+        })
+
+        if (!user) throw new Error('Erro ao dá pontuação ao usuário.')
+
+        const xp = user.xp + userXp;
+
+        console.log('Atualizando xp para '+xp)
+        const userUpdated = await prisma.user.update({
+            where: {
+                id: user.id
+            },
+            data: { xp }
         })
 
         return {
             success: true,
-            xp: user.xp
+            xp: userXp
         }
     } catch (error) {
         console.log('Erro ao finalizar game match', error);

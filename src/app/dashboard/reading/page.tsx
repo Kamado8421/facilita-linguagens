@@ -6,7 +6,7 @@ import Logo from "@/src/assets/logo.svg";
 import { useState, useEffect, useRef } from "react";
 import Button from "@/src/components/button";
 import { useSearchParams, redirect } from "next/navigation";
-import { fetchDeleteGameMatch, fetchFinishReading, fetchValidateGameMatch } from "./fetchs";
+import { fetchDeleteGameMatch, fetchFinishReading, fetchUpdateGameMatch, fetchValidateGameMatch } from "./fetchs";
 import FinishReadingScreen from "./finishReading";
 
 function InvalidGameMatch() {
@@ -46,9 +46,13 @@ export default function ReadingPage() {
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
     const [finishReading, setFinishReading] = useState(false);
     const [xp, setXp] = useState(0);
+    const [userXp, setUserXp] = useState(0);
+
+    const [textId, setTextId] = useState('');
 
     useEffect(() => {
         const validateGameMatch = async () => {
+            setLoading(false);
             if (!gameMatchId) {
                 setInvalidGameMatch(true);
                 setLoading(false);
@@ -71,7 +75,7 @@ export default function ReadingPage() {
         };
 
         validateGameMatch();
-    }, [gameMatchId]);
+    }, [gameMatchId, textId]);
 
 
     useEffect(() => {
@@ -122,6 +126,13 @@ export default function ReadingPage() {
         return <InvalidGameMatch />;
     }
 
+    function generateXpForReading() {
+        const randomXp = Math.floor(Math.random() * (15 - 10 + 1)) + 10;
+        const newXp = userXp + randomXp;
+        setUserXp(newXp);
+        return randomXp;
+    }
+
     return (
         <div className="fixed top-0 left-0 z-50 w-screen h-screen bg-gray-200 overflow-y-auto">
 
@@ -163,19 +174,54 @@ export default function ReadingPage() {
                     </span>
 
                     <div className="space-y-5 text-justify text-gray-800 leading-relaxed">
-                        <pre className="font-serif text-center">{paused ? 'Pausado':content}</pre>
+                        <pre className="font-serif text-center">{paused ? 'Pausado' : content}</pre>
                     </div>
                 </div>
                 <div className="bg-white shadow-lg rounded-lg w-full md:w-[60%] lg:w-[50%] p-10 mt-2">
-                    <span>Finalizou sua leitura?</span>
+                    <span>O que desejas fazer?</span>
                     <br />
                     <br />
-                    <Button title="Marcar como concluída" action={async () => {
-                        const data = await fetchFinishReading(gameMatchId!);
-                        setXp(data.xp!)
-                        setPaused(true);
-                        setFinishReading(true);
-                    }} />
+                    <div className="flex md:flex-row flex-col items-center gap-5">
+                        <Button title="Finalizar todas as leituras" style={{ backgroundColor: '#ff060680' }}
+                            action={async () => {
+                                const finalXp = userXp === 0 ? generateXpForReading() : userXp;
+                                const data = await fetchFinishReading(gameMatchId!, finalXp);
+                                setXp(data.xp!);
+                                setPaused(true);
+                                setFinishReading(true);
+                            }} />
+                        <Button title="Prosseguir + Próxima Leitura"
+                            action={async () => {
+                                generateXpForReading();
+                                const res = await fetchUpdateGameMatch(gameMatchId!);
+                                if (res.success) {
+                                    setTextId(res.textId!);
+                                    return;
+                                }
+
+                                alert('Não foi possível seguir para o próximo texto!');
+                            }}
+                        />
+                        <Button
+                            title="Pular"
+                            action={async () => {
+                                const res = await fetchUpdateGameMatch(gameMatchId!);
+
+                                if (res.success) {
+                                    setTextId(res.textId!);
+                                    return;
+                                }
+
+                                alert('Não foi possível alterar o texto!');
+                            }}
+                            style={{
+                                backgroundColor: 'transparent',
+                                borderWidth: 2,
+                                borderColor: '#7b7b7b',
+                                width: '30%',
+                                color: '#7b7b7b'
+                            }} />
+                    </div>
                 </div>
             </main>
         </div>

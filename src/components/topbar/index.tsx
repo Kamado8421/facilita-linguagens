@@ -3,10 +3,17 @@
 import { auth } from "@/src/lib/auth";
 import Image from "next/image";
 import MobileSidebar from "../mobile-sidebar";
+import prisma from "@/src/lib/prisma";
 
 export default async function TopBar() {
 
     const session = await auth();
+
+    const info = await prisma.user.findUnique({
+        where: {
+            id: session?.user.id
+        }
+    })
 
     return (
         <div className="w-full p-2 flex items-center justify-between pl-5 pr-5">
@@ -15,7 +22,7 @@ export default async function TopBar() {
             <div className="flex gap-2.5 items-center">
                 <div className="flex flex-col items-end">
                     <span><strong>{session?.user.firstName}</strong></span>
-                    <span className="text-gray-500">XP: {session?.user.xp}</span>
+                    <span className="text-gray-500">XP: {info?.xp}</span>
                 </div>
                 <a href="/dashboard/profile" target="_self">
                     <Image
