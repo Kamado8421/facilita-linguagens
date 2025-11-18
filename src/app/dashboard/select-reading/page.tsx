@@ -33,8 +33,6 @@ export default function SelectReadingPage() {
         const gameMatch = await fetchCreateGameMatch(typeText);
 
         if (gameMatch.success) {
-            // alert(gameMatch.data?.idText)
-            // alert(gameMatch.data?.id)
             setLoading(false);
             return redirect(`/dashboard/reading?game-match-id=${gameMatch.data?.id}`)
         } else {
