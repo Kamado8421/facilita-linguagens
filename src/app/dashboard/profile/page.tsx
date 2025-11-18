@@ -1,4 +1,3 @@
-import PopUp from "@/src/components/pop-up";
 import { auth } from "@/src/lib/auth";
 import Image from "next/image";
 import ChangerPasswordButton from "./changerPasswordButton";

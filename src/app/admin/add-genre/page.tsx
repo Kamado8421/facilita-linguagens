@@ -5,11 +5,6 @@ import { fetchGenres } from "../../dashboard/select-reading/fetchs";
 import { GenreType } from "@/src/types";
 import { createGenreAction } from "./textAction";
 
-type TextFormState = {
-    success: boolean;
-    message: string;
-};
-
 export default function GenrePage() {
     const [genres, setGenres] = useState<GenreType[]>([]);
     const [state, formAction] = useActionState(createGenreAction, { success: false, message: "" });
