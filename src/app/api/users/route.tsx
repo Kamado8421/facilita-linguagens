@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
 
     } catch (error) {
-        console.error('error')
+        console.error('error', error)
         return Response.json({ message: 'ocorreu um erro ao criar o usuário' })
     }
 }
