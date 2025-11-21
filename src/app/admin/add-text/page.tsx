@@ -13,10 +13,9 @@ export default function TextsPage() {
     const loadGenres = async () => {
       const data = await fetchGenres();
       setGenres(data);
-    }
+    };
     loadGenres();
   }, []);
-
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center py-10">
@@ -26,16 +25,13 @@ export default function TextsPage() {
         action={formAction}
         className="bg-white shadow-md rounded-2xl p-6 w-full max-w-lg flex flex-col gap-4"
       >
+        {/* TÍTULO */}
         <div>
           <label className="block text-sm font-medium mb-1">Título *</label>
-          <input
-            name="title"
-            type="text"
-            className="w-full border rounded-lg p-2"
-            required
-          />
+          <input name="title" type="text" className="w-full border rounded-lg p-2" required />
         </div>
 
+        {/* CONTEÚDO */}
         <div>
           <label className="block text-sm font-medium mb-1">Conteúdo *</label>
           <textarea
@@ -46,6 +42,7 @@ export default function TextsPage() {
           ></textarea>
         </div>
 
+        {/* AUTOR */}
         <div>
           <label className="block text-sm font-medium mb-1">Autor</label>
           <input
@@ -56,13 +53,10 @@ export default function TextsPage() {
           />
         </div>
 
+        {/* GÊNERO TEXTUAL */}
         <div>
-          <label className="block text-sm font-medium mb-1">Gênero Textual *</label>
-          <select
-            name="textualGenreId"
-            className="w-full border rounded-lg p-2"
-            required
-          >
+          <label className="block text-sm font-medium mb-1">Gênero Textual * <a href="/admin/add-genre" className="text-blue-400 underline">(Cadastrar novo Gênero)</a></label>
+          <select name="textualGenreId" className="w-full border rounded-lg p-2" required>
             <option value="">Selecione um gênero</option>
             {genres.map((g) => (
               <option key={g.id} value={g.id}>
@@ -72,6 +66,53 @@ export default function TextsPage() {
           </select>
         </div>
 
+        {/* QUESTÕES */}
+        <hr className="my-3" />
+        <h2 className="text-lg font-semibold">Questão</h2>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Enunciado *</label>
+          <input
+            name="statement"
+            type="text"
+            className="w-full border rounded-lg p-2"
+            required
+          />
+        </div>
+
+        {/* ALTERNATIVA A */}
+        <div>
+          <label className="block text-sm font-medium mb-1">Alternativa A *</label>
+          <input
+            name="alternativeA"
+            type="text"
+            className="w-full border rounded-lg p-2"
+            required
+          />
+        </div>
+
+        {/* ALTERNATIVA B */}
+        <div>
+          <label className="block text-sm font-medium mb-1">Alternativa B *</label>
+          <input
+            name="alternativeB"
+            type="text"
+            className="w-full border rounded-lg p-2"
+            required
+          />
+        </div>
+
+        {/* ALTERNATIVA CORRETA */}
+        <div>
+          <label className="block text-sm font-medium mb-1">Alternativa Correta *</label>
+          <select name="correctAlternative" className="w-full border rounded-lg p-2" required>
+            <option value="">Selecione</option>
+            <option value="a">Alternativa A</option>
+            <option value="b">Alternativa B</option>
+          </select>
+        </div>
+
+        {/* BOTÃO */}
         <button
           type="submit"
           className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 rounded-lg"
@@ -79,8 +120,12 @@ export default function TextsPage() {
           Salvar
         </button>
 
+        {/* MENSAGEM */}
         {state.message && (
-          <p className={`text-center text-sm ${state.success ? "text-green-600" : "text-red-500"}`}>
+          <p
+            className={`text-center text-sm ${state.success ? "text-green-600" : "text-red-500"
+              }`}
+          >
             {state.message}
           </p>
         )}

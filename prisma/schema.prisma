@@ -8,29 +8,32 @@ datasource db {
 }
 
 model User {
-  id         String    @id @default(uuid())
-  firstName  String
-  email      String    @unique @default(cuid())
-  username   String    @unique
-  password   String
-  xp         Int       @default(0)
-  profileUrl String    @default("https://i.pinimg.com/236x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg")
-  insights   Insights?
-  createdAt  DateTime  @default(now())
+  id             String           @id @default(uuid())
+  firstName      String
+  email          String           @unique @default(cuid())
+  username       String           @unique
+  password       String
+  xp             Int              @default(0)
+  profileUrl     String           @default("https://i.pinimg.com/236x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg")
+  insights       Insights?
+  createdAt      DateTime         @default(now())
+  insightsGenres InsightsGenres[]
 }
 
 model Insights {
   id                 String @id @default(uuid())
   userId             String @unique
   totalTextRead      Int    @default(0)
+  correctAnswers     Int    @default(0)
   readingTimeSeconds Int    @default(0)
   user               User   @relation(fields: [userId], references: [id])
 }
 
 model TextualGenre {
-  id    String @id @default(uuid())
-  name  String @unique
-  texts Text[]
+  id             String           @id @default(uuid())
+  name           String           @unique
+  texts          Text[]
+  insightsGenres InsightsGenres[]
 }
 
 model GameMatch {
@@ -47,11 +50,35 @@ model Text {
   author         String?
   textualGenreId String
   textualGenre   TextualGenre @relation(fields: [textualGenreId], references: [id])
+  question       Question?
 }
 
 model InsightsGenres {
-  id            String @id @default(uuid())
-  user          String
-  genreId       String
-  totalTextRead Int    @default(0)
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  genreId String
+  genre   TextualGenre @relation(fields: [genreId], references: [id])
+
+  totalTextRead Int @default(0)
+
+  @@unique([userId, genreId])
+}
+
+model Question {
+  id        String @id @default(cuid())
+  textId    String @unique
+  text      Text   @relation(fields: [textId], references: [id])
+  statement String
+
+  alternativeA       String
+  alternativeB       String
+  correctAlternative CorrectAlternative
+}
+
+enum CorrectAlternative {
+  a
+  b
 }

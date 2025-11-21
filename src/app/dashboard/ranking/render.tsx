@@ -1,4 +1,4 @@
-export default function RenderRanking({ ranking, userId }: { ranking: { id: string, username: string, xp: number }[], userId: string }) {
+export default function RenderRanking({ ranking, userId, indexRanking }: { ranking: { id: string, username: string, xp: number }[], indexRanking: string | number, userId: string }) {
 
     const sortedRanking = [...ranking].sort((a, b) => b.xp - a.xp);
 
@@ -24,7 +24,7 @@ export default function RenderRanking({ ranking, userId }: { ranking: { id: stri
             {/* Ações */}
             <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 mb-2">
                 <div className="bg-gray-50 text-green-600 py-2 w-full sm:w-62 sm:mr-2.5 rounded-2xl text-center font-bold text-sm sm:text-base">
-                    Sua posição: 10°
+                    Sua posição: {indexRanking}°
                 </div>
                 <div className="bg-blue-500 text-white py-2 w-full sm:w-62 rounded-2xl text-center font-bold text-sm sm:text-base">
                     <a href="/dashboard/select-reading" target="_self">Iniciar leitura</a>
