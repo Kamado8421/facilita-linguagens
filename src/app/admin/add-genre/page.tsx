@@ -51,7 +51,7 @@ export default function GenrePage() {
             </form>
 
             <div className="mt-5 bg-white shadow-md rounded-2xl p-6 w-full max-w-lg flex flex-col gap-4">
-                <strong>{genres.length} Gêneros Cadastrados</strong>
+                <strong>{genres.length} Gêneros Cadastrados <a href="/admin/add-text" className="text-blue-500 underline">(Cadastrar novo Texto)</a></strong>
 
                 <ul>
                     {genres.map(({name}, i) => <li>{i+1} - {name}</li>)}

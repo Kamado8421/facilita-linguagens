@@ -97,7 +97,6 @@ export async function fetchFinishReading(gameMatchId: string, userXp: number) {
         await fetchDeleteGameMatch(gameMatchId);
         const session = await auth();
 
-        console.log('Buscando ID de usuário')
         const user = await prisma.user.findUnique({
             where: {
                 id: session?.user.id
@@ -108,7 +107,6 @@ export async function fetchFinishReading(gameMatchId: string, userXp: number) {
 
         const xp = user.xp + userXp;
 
-        console.log('Atualizando xp para '+xp)
         const userUpdated = await prisma.user.update({
             where: {
                 id: user.id
@@ -122,6 +120,164 @@ export async function fetchFinishReading(gameMatchId: string, userXp: number) {
         }
     } catch (error) {
         console.log('Erro ao finalizar game match', error);
+        return { success: false };
+    }
+}
+
+export async function fetchQuestionText(gameMatchId: string) {
+    try {
+
+        const gameMatch = await prisma.gameMatch.findFirst({
+            where: {
+                id: gameMatchId
+            }
+        });
+
+        const question = await prisma.question.findFirst({
+            where: {
+                textId: gameMatch?.idText
+            }
+        })
+
+        if (!gameMatch || !question) {
+            throw new Error('Erro ao buscar questões')
+        }
+
+        return { success: true, question }
+
+
+    } catch (error) {
+        console.log('Erro ao buscar questões das perguntas', error);
+        return { success: false };
+    }
+}
+
+
+// export async function addTextReaded(genreId: string, textId: string) {
+
+//     const session = await auth();
+
+//     try {
+
+//         const insight = await prisma.insights.findFirst({
+//             where: {
+//                 userId: session?.user.id!
+//             }
+//         })
+
+//         if (!insight) {
+
+//             await prisma.insights.create({
+//                 data: {
+//                    totalTextRead: 1,
+//                    userId: session?.user.id!
+//                 }
+//             })
+
+//             return { success: true };
+//         }
+
+//         await prisma.insights.update({
+//             where: {
+//                 userId: insight.id
+//             },
+//             data: {
+//                 totalTextRead: insight.totalTextRead! + 1
+//             }
+//         })
+
+//         const insightGenre = await prisma.insightsGenres.findFirst({
+//             where: {
+//                 userId: session?.user.id,
+//                 genreId
+//             }
+//         });
+
+//         if (!insightGenre) {
+//             await prisma.insightsGenres.create({
+//                 data: {
+//                     genreId,
+//                     userId: session?.user.id!,
+//                     totalTextRead: 1,
+//                 }
+//             });
+
+//             return {
+//                 success: true
+//             }
+//         }
+
+//         await prisma.insightsGenres.update({
+//             where: {
+//                 id: insightGenre.id
+//             },
+//             data: {
+//                 totalTextRead: insightGenre?.totalTextRead! + 1
+//             }
+//         });
+
+
+//         return {
+//             success: true
+//         }
+
+
+
+//     } catch (error) {
+//         console.log('Erro ao adcionar total de texto', error);
+//         return { success: false }
+//     }
+// }
+
+export async function addTextReaded(genreId: string, answerOk: boolean) {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+        return { success: false, error: "Usuário não autenticado" };
+    }
+
+    try {
+        const userId = session.user.id;
+
+        await prisma.insights.upsert({
+            where: { userId },
+            create: {
+                userId,
+                totalTextRead: 1,
+            },
+            update: {
+                totalTextRead: {
+                    increment: 1,
+                },
+                correctAnswers: {
+                    increment: answerOk ? 1 : 0
+                }
+            }
+        });
+
+        await prisma.insightsGenres.upsert({
+            where: {
+                userId_genreId: {
+                    userId,
+                    genreId,
+                }
+            },
+            create: {
+                userId,
+                genreId,
+                totalTextRead: 1,
+            },
+            update: {
+                totalTextRead: {
+                    increment: 1
+                }
+            }
+        });
+
+        return { success: true };
+
+    } catch (error) {
+        console.error("Erro ao adicionar total de texto", error);
         return { success: false };
     }
 }

@@ -12,6 +12,17 @@ export async function GET(req: NextRequest) {
          return Response.json({ message: 'Acesso Negado' }, { status: 400 });
       }
 
+      const users = await prisma.user.findMany({
+         select: {
+            id: true,
+            username: true,
+            xp: true
+         }
+      });
+
+      // Ordenar os usuários por XP em ordem decrescente
+      const ranking = users.sort((a: any, b: any) => b.xp - a.xp);
+
 
       if (userId) {
          const user = await prisma.user.findFirst({
@@ -24,24 +35,13 @@ export async function GET(req: NextRequest) {
             return Response.json({
                id: user.id,
                username: user.username,
-               xp: user.xp
+               xp: user.xp,
+               index: ranking.findIndex(u => u.id === userId) + 1
             }, { status: 200 });
          }
 
          return Response.json({ message: 'User not Found' }, { status: 404 });
       }
-
-      // Modificar consulta para retornar apenas id, username e xp
-      const users = await prisma.user.findMany({
-         select: {
-            id: true,
-            username: true,
-            xp: true
-         }
-      });
-
-      // Ordenar os usuários por XP em ordem decrescente
-      const ranking = users.sort((a: any, b: any) => b.xp - a.xp);
 
       return Response.json(ranking, { status: 200 });
    } catch (error) {

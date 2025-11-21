@@ -14,7 +14,7 @@ async function fetchRanking() {
         }
     });
 
-    if(res.ok){
+    if (res.ok) {
         return await res.json();
     }
 }
@@ -23,6 +23,8 @@ export default async function RankingPage() {
 
     const ranking = await fetchRanking();
     const session = await auth();
+
+    const indexRanking = ranking.findIndex((user: any) => user.id === session?.user.id) + 1;
 
     return (
         <div className="m-3 sm:m-7 mt-4 sm:mt-6">
@@ -35,7 +37,11 @@ export default async function RankingPage() {
                 </p>
             </header>
 
-            <RenderRanking ranking={ranking} userId={session?.user.id!} />
+            <RenderRanking
+                indexRanking={indexRanking}
+                ranking={ranking}
+                userId={session?.user.id!}
+            />
         </div>
     );
 }

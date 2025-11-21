@@ -39,7 +39,7 @@ export default async function registerAction(
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const ulrRandom = URLS_PROFILE_DEFAULT[Math.floor(Math.random() * URLS_PROFILE_DEFAULT.length)];
-      
+
     const userCreated = await prisma.user.create({
       data: {
         profileUrl: ulrRandom,
@@ -48,6 +48,8 @@ export default async function registerAction(
         password: hashedPassword,
       },
     });
+
+    await prisma.insights.create({ data: { userId: userCreated.id } })
 
     return {
       message: "Usuário cadastrado com sucesso!",
