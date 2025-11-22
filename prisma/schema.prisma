@@ -17,7 +17,9 @@ model User {
   profileUrl     String           @default("https://i.pinimg.com/236x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg")
   insights       Insights?
   createdAt      DateTime         @default(now())
+
   insightsGenres InsightsGenres[]
+  textsRead      TextRead[]
 }
 
 model Insights {
@@ -51,6 +53,8 @@ model Text {
   textualGenreId String
   textualGenre   TextualGenre @relation(fields: [textualGenreId], references: [id])
   question       Question?
+
+  readers        TextRead[] 
 }
 
 model InsightsGenres {
@@ -81,4 +85,16 @@ model Question {
 enum CorrectAlternative {
   a
   b
+}
+
+model TextRead {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  textId    String
+  readAt    DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  text      Text     @relation(fields: [textId], references: [id])
+
+  @@unique([userId, textId]) 
 }

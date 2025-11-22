@@ -54,6 +54,9 @@ export async function fetchDeleteGameMatch(gameMatchId: string) {
 
 export async function fetchUpdateGameMatch(gameMatchId: string) {
     try {
+
+        const session = await auth();
+
         const gameMatch = await prisma.gameMatch.findFirst({
             where: {
                 id: gameMatchId
@@ -63,6 +66,20 @@ export async function fetchUpdateGameMatch(gameMatchId: string) {
         if (!gameMatch) {
             throw new Error('INVALID_GAME_MATCH_FOR_UPDATE');
         }
+
+        await prisma.textRead.upsert({
+            where: {
+                userId_textId: {
+                    userId: session?.user.id!,
+                    textId: gameMatch.idText
+                }
+            },
+            update: {},
+            create: {
+                textId: gameMatch.idText,
+                userId: session?.user.id!
+            },
+        })
 
         const texts = await prisma.text.findMany({
             where: { textualGenreId: gameMatch.idTextualGenre },
@@ -152,82 +169,6 @@ export async function fetchQuestionText(gameMatchId: string) {
     }
 }
 
-
-// export async function addTextReaded(genreId: string, textId: string) {
-
-//     const session = await auth();
-
-//     try {
-
-//         const insight = await prisma.insights.findFirst({
-//             where: {
-//                 userId: session?.user.id!
-//             }
-//         })
-
-//         if (!insight) {
-
-//             await prisma.insights.create({
-//                 data: {
-//                    totalTextRead: 1,
-//                    userId: session?.user.id!
-//                 }
-//             })
-
-//             return { success: true };
-//         }
-
-//         await prisma.insights.update({
-//             where: {
-//                 userId: insight.id
-//             },
-//             data: {
-//                 totalTextRead: insight.totalTextRead! + 1
-//             }
-//         })
-
-//         const insightGenre = await prisma.insightsGenres.findFirst({
-//             where: {
-//                 userId: session?.user.id,
-//                 genreId
-//             }
-//         });
-
-//         if (!insightGenre) {
-//             await prisma.insightsGenres.create({
-//                 data: {
-//                     genreId,
-//                     userId: session?.user.id!,
-//                     totalTextRead: 1,
-//                 }
-//             });
-
-//             return {
-//                 success: true
-//             }
-//         }
-
-//         await prisma.insightsGenres.update({
-//             where: {
-//                 id: insightGenre.id
-//             },
-//             data: {
-//                 totalTextRead: insightGenre?.totalTextRead! + 1
-//             }
-//         });
-
-
-//         return {
-//             success: true
-//         }
-
-
-
-//     } catch (error) {
-//         console.log('Erro ao adcionar total de texto', error);
-//         return { success: false }
-//     }
-// }
 
 export async function addTextReaded(genreId: string, answerOk: boolean) {
     const session = await auth();

@@ -190,9 +190,10 @@ export default function ReadingPage() {
         return (
             <div className="fixed inset-0 bg-blue-500 flex flex-col items-center justify-center">
                 <Image src={Logo} width={200} alt="Logo" />
-                <h1 className="text-white text-3xl font-bold mt-5">Partida inválida 😥</h1>
+                <h1 className="text-white text-3xl font-bold mt-5 mb-5">Partida inválida 😥</h1>
                 <Button
                     title="Criar nova partida"
+                    style={{backgroundColor: 'blue', maxWidth: '300px'}}
                     action={() => redirect("/dashboard/select-reading")}
                 />
             </div>
