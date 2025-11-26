@@ -89,7 +89,7 @@ export async function fetchUpdateGameMatch(gameMatchId: string) {
         const texts = await getUnreadTexts({genreId:gameMatch.idTextualGenre,userId:session?.user.id!});
 
         if (texts.length === 0) {
-            return { success: false };
+            return { success: false, finish: true };
         }
 
         const randomText = texts[Math.floor(Math.random() * texts.length)];
@@ -108,7 +108,7 @@ export async function fetchUpdateGameMatch(gameMatchId: string) {
     } catch (error) {
         console.log('Erro ao arualizar game match', error);
        // await fetchFinishReading(gameMatchId, 0);                       
-        return { success: false };
+        return { success: false, finish: true };
     }
 }
 

@@ -174,6 +174,11 @@ export default function ReadingPage() {
 
         //await pularTexto(true);
         const res = await fetchUpdateGameMatch(gameMatchId!);
+        console.log(res);
+        if (!res.success && res.finish) {
+            setFinishReading(true);
+            return;
+        }
 
         setTextId(res.textId!);
         
