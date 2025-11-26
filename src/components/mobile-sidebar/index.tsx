@@ -1,30 +1,10 @@
-// 'use client';
-// import { ListIcon } from "lucide-react";
-// import { useState } from "react";
-// import { MENU_ROUTES } from "../sidebar"; 
-
-// export default function MobileSidebar() {
-
-//     const [isOpen, setIsOpen] = useState(false);
-
-//     return (
-//         <>
-//             <button className="flex md:hidden bg-blue-500 p-1.5 rounded-md"><ListIcon color="white" size={18} /></button>
-
-//             <div className="fixed top-0 z-50 left-0 h-screen w-screen items-end flex bg-[#0000007d]">
-//                 <div className="w-full flex flex-col bg-blue-500 h-auto max-h-[60%] overflow-y-auto rounded-t-2xl">
-//                     ....
-//                 </div>
-//             </div>
-
-//         </>
-//     )
-// }
-
 'use client';
 import { ListIcon } from "lucide-react";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion"; // 👈 animações suaves
+import { motion, AnimatePresence } from "framer-motion";
+import { MENU_ROUTES } from "../sidebar";
+import Button from "../button";
+import { signOut } from "next-auth/react";
 
 export default function MobileSidebar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -59,14 +39,24 @@ export default function MobileSidebar() {
                             className="w-full flex flex-col bg-blue-500 h-auto max-h-[60%] overflow-y-auto rounded-t-2xl p-6"
                             onClick={(e) => e.stopPropagation()} // evita fechar ao clicar dentro
                         >
-                            <h2 className="text-white text-lg font-bold mb-4">Menu</h2>
+                            <h2 className="text-white text-center text-lg font-bold mb-4">Menu</h2>
 
                             {/* Exemplo de itens */}
-                            <ul className="space-y-3 text-white font-semibold">
-                                <li className="hover:text-blue-200 cursor-pointer">Início</li>
-                                <li className="hover:text-blue-200 cursor-pointer">Perfil</li>
-                                <li className="hover:text-blue-200 cursor-pointer">Configurações</li>
-                                <li className="hover:text-blue-200 cursor-pointer">Sair</li>
+                            <ul className="space-y-3 text-white font-semibold flex flex-col items-center">
+
+                                {MENU_ROUTES.map(({ title, Icon, path }, i) => (
+                                    <i
+                                        className="bg-[#ffffff18] w-[94%] p-2 rounded-md flex items-center gap-5"
+                                        key={i}><Icon /><a href={path}>{title}</a></i>
+                                ))}
+                                <Button
+                                    title="Sair"
+                                    action={() => {
+                                        const isExit = confirm("Tem certeza que deseja sair?");
+                                        if (isExit) return signOut({ redirect: true, callbackUrl: "/" })
+                                    }}
+                                    style={{ color: 'white', backgroundColor: '#ffffff18' }}
+                                />
                             </ul>
                         </motion.div>
                     </motion.div>
