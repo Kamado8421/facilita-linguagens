@@ -1,10 +1,7 @@
 const { PrismaClient } = require("@prisma/client")
 
 const generos = [
-    { name: "Poema" },
-    { name: "Argumentativo" },
-    { name: "Crônica" },
-    { name: "Prosa" },
+    { name: "Conto" },
 ]
 
 const prisma = new PrismaClient();
@@ -21,12 +18,32 @@ async function buscargenero() {
     console.log(await prisma.textualGenre.findMany());
 }
 
-const generoId = 'a4459abf-b70c-4488-899b-2a6e0d6de1f2';
+const generoId = '66ae709f-489b-4358-af00-110624185aa8';
 
 const textos = [
     {
         textualGenreId: generoId,
-        title: 'Um conto de um dev',
+        title: 'Conto 1',
+        content: 'Meu texto em string',
+        author: undefined,
+    },    {
+        textualGenreId: generoId,
+        title: 'Conto 2',
+        content: 'Meu texto em string',
+        author: undefined,
+    },    {
+        textualGenreId: generoId,
+        title: 'Conto 3',
+        content: 'Meu texto em string',
+        author: undefined,
+    },    {
+        textualGenreId: generoId,
+        title: 'Conto 4',
+        content: 'Meu texto em string',
+        author: undefined,
+    },    {
+        textualGenreId: generoId,
+        title: 'Conto 5',
         content: 'Meu texto em string',
         author: undefined,
     }
@@ -49,4 +66,4 @@ async function criarTextos() {
 
 }
 
-criarTextos()
+criarTextos();

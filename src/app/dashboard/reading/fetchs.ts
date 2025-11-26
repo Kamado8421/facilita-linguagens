@@ -1,6 +1,7 @@
 'use server';
 import { auth } from "@/src/lib/auth";
 import prisma from "@/src/lib/prisma";
+import { getUnreadTexts } from "@/src/app/api/reading/route";
 
 export async function fetchValidateGameMatch(gameMatchId: string) {
     try {
@@ -81,10 +82,11 @@ export async function fetchUpdateGameMatch(gameMatchId: string) {
             },
         })
 
-        const texts = await prisma.text.findMany({
+        /*const texts = await prisma.text.findMany({
             where: { textualGenreId: gameMatch.idTextualGenre },
             select: { id: true },
-        });
+        });*/
+        const texts = await getUnreadTexts({genreId:gameMatch.idTextualGenre,userId:session?.user.id!});
 
         if (texts.length === 0) {
             return { success: false };
@@ -105,6 +107,7 @@ export async function fetchUpdateGameMatch(gameMatchId: string) {
 
     } catch (error) {
         console.log('Erro ao arualizar game match', error);
+       // await fetchFinishReading(gameMatchId, 0);                       
         return { success: false };
     }
 }
