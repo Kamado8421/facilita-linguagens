@@ -54,7 +54,7 @@ export default function GenrePage() {
                 <strong>{genres.length} Gêneros Cadastrados <a href="/admin/add-text" className="text-blue-500 underline">(Cadastrar novo Texto)</a></strong>
 
                 <ul>
-                    {genres.map(({name}, i) => <li>{i+1} - {name}</li>)}
+                    {genres.map(({name}, i) => <li key={i}>{i+1} - {name}</li>)}
                 </ul>
             </div>
 

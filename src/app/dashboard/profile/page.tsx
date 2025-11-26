@@ -1,6 +1,7 @@
 import { auth } from "@/src/lib/auth";
 import Image from "next/image";
 import ChangerPasswordButton from "./changerPasswordButton";
+import { URL_DEFAULT_PROFILE } from "@/src/constants";
 
 export default async function ProfilePage() {
 
@@ -10,7 +11,7 @@ export default async function ProfilePage() {
         <div className="w-full h-auto md:pl-5 md:pr-5 pl-3 pr-3">
             <div className="p-10 flex md:flex-row flex-col gap-10 items-center bg-white md:rounded-[50px] rounded-[20px] shadow-md mt-5">
                 <Image
-                    src={session?.user.profileUrl!}
+                    src={session?.user.profileUrl || URL_DEFAULT_PROFILE}
                     alt="Foto de usuário"
                     width={150}
                     height={150}

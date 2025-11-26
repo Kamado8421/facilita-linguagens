@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import { URLS_PROFILE_DEFAULT } from "@/src/constants";
 
 export default async function registerAction(
-  _prevState: any,
+  _prevState: unknown,
   formData: FormData
 ) {
   try {
