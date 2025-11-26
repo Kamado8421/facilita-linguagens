@@ -2,10 +2,18 @@
 import { useEffect, useState } from "react";
 import { fetchSimpleInsight } from "./simpleInsight";
 
+function formatTime(seconds: number) {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    const result = hrs !== 0? `${hrs}h ${mins}m`: `${mins}m ${secs}s`
+    return result;
+}
 export default function SimpleInsightBox() {
 
     const [totalTextRead, setTotalTextRead] = useState('');
     const [countGenerExprore, setCountGenerExprore] = useState<'' | number>('');
+    const [time,setTime] = useState('0h 0m');
 
     useEffect(() => {
         (async () => {
@@ -14,6 +22,7 @@ export default function SimpleInsightBox() {
             if (res.success) {
                 setTotalTextRead(res.data?.totalTextRead.toString() || '');
                 setCountGenerExprore(res.countGenerExprore || '');
+                setTime(formatTime(res.data?.readingTimeSeconds || 0));
             }
         })()
     }, []);
@@ -35,7 +44,7 @@ export default function SimpleInsightBox() {
                     {/* <DashboardBoxIcon icon="clock" /> */}
                 </div>
                 <div className="mb-1">Tempo de leitura</div>
-                <div className="text-blue-800 text-4xl mb-1">18h 22m</div>
+                <div className="text-blue-800 text-4xl mb-1">{time}</div>
                 <div className="font-normal text-gray-600">
                     Tempo total dedicado à <br /> leitura
                 </div>

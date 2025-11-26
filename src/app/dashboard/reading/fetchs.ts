@@ -112,7 +112,7 @@ export async function fetchUpdateGameMatch(gameMatchId: string) {
     }
 }
 
-export async function fetchFinishReading(gameMatchId: string, userXp: number) {
+export async function fetchFinishReading(gameMatchId: string, userXp: number, seconds: number) {
     try {
         await fetchDeleteGameMatch(gameMatchId);
         const session = await auth();
@@ -132,6 +132,14 @@ export async function fetchFinishReading(gameMatchId: string, userXp: number) {
                 id: user.id
             },
             data: { xp }
+        })
+        await prisma.insights.update({
+            where: { userId: userUpdated.id},
+            data: {
+                readingTimeSeconds: {
+                    increment: seconds 
+                }
+            }
         })
 
         return {
