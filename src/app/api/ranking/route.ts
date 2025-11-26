@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
       });
 
       // Ordenar os usuários por XP em ordem decrescente
-      const ranking = users.sort((a: any, b: any) => b.xp - a.xp);
+      const ranking = users.sort((a, b) => b.xp - a.xp);
 
 
       if (userId) {

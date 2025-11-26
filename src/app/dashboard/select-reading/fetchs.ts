@@ -43,7 +43,7 @@ export async function fetchCreateGameMatch(typeText: 'random' | string) {
       id: string,
       idText: string,
       idTextualGenre: string,
-      createdAt: string | any
+      createdAt: string | Date
     } = await response.json();
     return { success: true, data };
   }

@@ -2,7 +2,7 @@
 
 import prisma from "@/src/lib/prisma";
 
-export async function createGenreAction(_prevState: any, formData: FormData) {
+export async function createGenreAction(_prevState: unknown, formData: FormData) {
     try {
         const genre = formData.get("genrename")?.toString().trim();
 

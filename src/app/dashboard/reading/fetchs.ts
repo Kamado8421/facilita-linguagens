@@ -58,6 +58,8 @@ export async function fetchUpdateGameMatch(gameMatchId: string) {
 
         const session = await auth();
 
+        if (!session?.user) throw new Error('Usuário não autenticado.');
+
         const gameMatch = await prisma.gameMatch.findFirst({
             where: {
                 id: gameMatchId
@@ -71,22 +73,18 @@ export async function fetchUpdateGameMatch(gameMatchId: string) {
         await prisma.textRead.upsert({
             where: {
                 userId_textId: {
-                    userId: session?.user.id!,
+                    userId: session.user.id,
                     textId: gameMatch.idText
                 }
             },
             update: {},
             create: {
                 textId: gameMatch.idText,
-                userId: session?.user.id!
+                userId: session.user.id
             },
         })
 
-        /*const texts = await prisma.text.findMany({
-            where: { textualGenreId: gameMatch.idTextualGenre },
-            select: { id: true },
-        });*/
-        const texts = await getUnreadTexts({genreId:gameMatch.idTextualGenre,userId:session?.user.id!});
+        const texts = await getUnreadTexts({ genreId: gameMatch.idTextualGenre, userId: session.user.id });
 
         if (texts.length === 0) {
             return { success: false, finish: true };
@@ -107,7 +105,6 @@ export async function fetchUpdateGameMatch(gameMatchId: string) {
 
     } catch (error) {
         console.log('Erro ao arualizar game match', error);
-       // await fetchFinishReading(gameMatchId, 0);                       
         return { success: false, finish: true };
     }
 }
@@ -134,10 +131,10 @@ export async function fetchFinishReading(gameMatchId: string, userXp: number, se
             data: { xp }
         })
         await prisma.insights.update({
-            where: { userId: userUpdated.id},
+            where: { userId: userUpdated.id },
             data: {
                 readingTimeSeconds: {
-                    increment: seconds 
+                    increment: seconds
                 }
             }
         })
