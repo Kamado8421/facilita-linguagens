@@ -136,7 +136,7 @@ export default function ReadingPage() {
     async function finalizarPartida() {
         addReadingXp();
 
-        await fetchFinishReading(gameMatchId!, sessionXp);
+        await fetchFinishReading(gameMatchId!, sessionXp, seconds);
         setPaused(true);
         setFinishReading(true);
     }
