@@ -1,7 +1,7 @@
 "use server";
 import { signIn } from "@/src/lib/auth";
 
-export default async function loginAction(_prevState: any, formData: FormData) {
+export default async function loginAction(_prevState: unknown, formData: FormData) {
   const username = formData.get("username")?.toString().trim();
   const password = formData.get("password")?.toString();
 

@@ -3,7 +3,7 @@ import { auth } from "@/src/lib/auth";
 import { prisma } from "@/src/lib/prisma";
 import bcrypt from "bcrypt";
 
-export default async function changePasswordAction(_prevState: any, formData: FormData) {
+export default async function changePasswordAction(_prevState: unknown, formData: FormData) {
     const password = formData.get("password")?.toString().trim();
     const confirmPassword = formData.get("confirm-password")?.toString().trim();
 

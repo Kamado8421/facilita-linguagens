@@ -2,7 +2,7 @@
 
 import prisma from "@/src/lib/prisma";
 
-export async function createTextAction(_prevState: any, formData: FormData) {
+export async function createTextAction(_prevState: unknown, formData: FormData) {
   try {
     const title = formData.get("title")?.toString().trim();
     const content = formData.get("content")?.toString().trim();

@@ -71,12 +71,23 @@ export default function ReadingPage() {
                 return;
             }
 
-            setContent(res.text?.content!);
-            setGenre(res.genre?.name!);
-            setTitle(res.text?.title!);
-            setTextId(res.text?.id!);
+            const resContent = res.text?.content || '';
+            const resGenreName = res.genre?.name || '';
+            const resTextTitle = res.text?.title || '';
+            const resTextId = res.text?.id || '';
+            const resGenreId = res.genre?.id || '';
 
-            setGenreId(res.genre?.id!);
+            if (!resContent || !resGenreId || !resTextId || !resTextTitle || !resGenreName) {
+                setInvalidGameMatch(true);
+                setLoading(false);
+                return;
+            }
+
+            setContent(resContent);
+            setGenre(resGenreName);
+            setTitle(resTextTitle);
+            setTextId(resTextId);
+            setGenreId(resGenreId);
 
             setPaused(false);
             setInvalidGameMatch(false);
@@ -181,7 +192,7 @@ export default function ReadingPage() {
         }
 
         setTextId(res.textId!);
-        
+
         await addTextReaded(genreId, answerOk);
         setIsQuestionPage(false);
         setAnswer("");
@@ -198,7 +209,7 @@ export default function ReadingPage() {
                 <h1 className="text-white text-3xl font-bold mt-5 mb-5">Partida inválida 😥</h1>
                 <Button
                     title="Criar nova partida"
-                    style={{backgroundColor: 'blue', maxWidth: '300px'}}
+                    style={{ backgroundColor: 'blue', maxWidth: '300px' }}
                     action={() => redirect("/dashboard/select-reading")}
                 />
             </div>

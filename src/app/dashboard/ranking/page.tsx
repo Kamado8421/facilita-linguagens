@@ -4,7 +4,13 @@ import { APP_DOMAIN, PLATAFORM_SECRET_KEY } from "@/src/constants";
 import RenderRanking from "./render";
 import { auth } from "@/src/lib/auth";
 
-async function fetchRanking() {
+type RankingUser = {
+    id: string;
+    username: string;
+    xp: number;
+};
+
+async function fetchRanking(): Promise<RankingUser[]> {
 
     const url = `${APP_DOMAIN}/api/ranking?key=${PLATAFORM_SECRET_KEY}`
     const res = await fetch(url, {
@@ -14,9 +20,10 @@ async function fetchRanking() {
         }
     });
 
-    if (res.ok) {
-        return await res.json();
-    }
+    if (!res.ok) return [];
+
+    return await res.json();
+
 }
 
 export default async function RankingPage() {
@@ -24,7 +31,7 @@ export default async function RankingPage() {
     const ranking = await fetchRanking();
     const session = await auth();
 
-    const indexRanking = ranking.findIndex((user: any) => user.id === session?.user.id) + 1;
+    const indexRanking = ranking.findIndex((user) => user.id === session?.user.id) + 1;
 
     return (
         <div className="m-3 sm:m-7 mt-4 sm:mt-6">
@@ -40,7 +47,7 @@ export default async function RankingPage() {
             <RenderRanking
                 indexRanking={indexRanking}
                 ranking={ranking}
-                userId={session?.user.id!}
+                userId={session?.user.id || ''}
             />
         </div>
     );
