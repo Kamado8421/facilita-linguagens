@@ -14,7 +14,6 @@ type Route = {
 
 export const MENU_ROUTES: Route[] = [
     { title: 'Início', Icon: HomeIcon, path: '/dashboard' },
-    { title: 'Início', Icon: HomeIcon, path: '/dashboard' },
     { title: 'Perfil', Icon: CircleUserRoundIcon, path: '/dashboard/profile' },
     { title: 'Leitura', Icon: BookMarkedIcon, path: '/dashboard/select-reading' },
     { title: 'Campanha', Icon: TrophyIcon, path: '/dashboard/ranking' },
