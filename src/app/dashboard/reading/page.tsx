@@ -135,7 +135,7 @@ export default function ReadingPage() {
     }, [seconds]);
 
     function addReadingXp() {
-        const xp = Math.floor(Math.random() * (12 - 5 + 1)) + 5;
+        const xp = Math.floor(Math.random() * (10 - 5 + 1)) + 5;
         setSessionXp((prev) => prev + xp);
         return xp;
     }
@@ -145,7 +145,9 @@ export default function ReadingPage() {
     }
 
     async function finalizarPartida() {
-        addReadingXp();
+        if(sessionXp > 6){
+            addReadingXp();
+        }
 
         await fetchFinishReading(gameMatchId!, sessionXp, seconds);
         setPaused(true);
@@ -183,11 +185,11 @@ export default function ReadingPage() {
             alert("Você errou 😥");
         }
 
-        //await pularTexto(true);
         const res = await fetchUpdateGameMatch(gameMatchId!);
-        console.log(res);
+
         if (!res.success && res.finish) {
-            setFinishReading(true);
+            alert('Não há mais textos para esta partida. Inicie uma nova leitura.');
+            await finalizarPartida();
             return;
         }
 
@@ -261,44 +263,46 @@ export default function ReadingPage() {
             </nav>
 
             {/* TEXTO */}
-            {!isQuestionPage && (
+            {5 === 5 && (
                 <main className="flex flex-col items-center p-6">
                     <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-2xl">
 
                         <h1 className="text-2xl font-bold text-blue-500 text-center">{title}</h1>
                         <p className="text-gray-500 text-center mb-6">- {genre} -</p>
 
-                        <div className="text-gray-800 leading-relaxed whitespace-pre-wrap">
+                        <div className="text-gray-800 leading-relaxed whitespace-pre-wrap text-center">
                             {paused ? "Pausado" : content}
                         </div>
                     </div>
 
                     {/* AÇÕES */}
-                    <div className="bg-white shadow-lg rounded-lg p-8 mt-6 w-full max-w-2xl text-center">
-                        <p className="mb-4 text-start">O que deseja fazer?</p>
+                    {!isQuestionPage && (
+                        <div className="bg-white shadow-lg rounded-lg p-8 mt-6 w-full max-w-2xl text-center">
+                            <p className="mb-4 text-start">O que deseja fazer?</p>
 
-                        <div className="flex flex-col md:flex-row gap-4 justify-center">
+                            <div className="flex flex-col md:flex-row gap-4 justify-center">
 
-                            <Button title="Finalizar leitura"
-                                action={finalizarPartida}
-                                style={{ backgroundColor: "#ff060680" }}
-                            />
+                                <Button title="Finalizar leitura"
+                                    action={finalizarPartida}
+                                    style={{ backgroundColor: "#ff060680" }}
+                                />
 
-                            <Button title="Responder questões"
-                                action={() => setIsQuestionPage(true)}
-                            />
+                                <Button title="Responder questões"
+                                    action={() => setIsQuestionPage(true)}
+                                />
 
-                            <Button title={`Pular ${skipCount}/3`}
-                                action={pularTexto}
-                                style={{
-                                    backgroundColor: "transparent",
-                                    borderWidth: 2,
-                                    borderColor: "#7b7b7b",
-                                    color: "#7b7b7b"
-                                }}
-                            />
+                                <Button title={`Pular ${skipCount}/3`}
+                                    action={pularTexto}
+                                    style={{
+                                        backgroundColor: "transparent",
+                                        borderWidth: 2,
+                                        borderColor: "#7b7b7b",
+                                        color: "#7b7b7b"
+                                    }}
+                                />
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </main>
             )}
 
@@ -340,6 +344,7 @@ export default function ReadingPage() {
                         </div>
 
                     </div>
+                    <br /><br />
                 </main>
             )}
 

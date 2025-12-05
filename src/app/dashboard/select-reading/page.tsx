@@ -12,11 +12,14 @@ export default function SelectReadingPage() {
 
     const [genres, setGenres] = useState<GenreType[]>([]);
     const [loading, setLoading] = useState(false);
+    const [fetchLoading, setFetchLoading] = useState(false);
 
     useEffect(() => {
         const loadGenres = async () => {
+            setFetchLoading(true);
             const data = await fetchGenres();
             setGenres(data);
+            setFetchLoading(false);
         }
         loadGenres();
     }, []);
@@ -72,7 +75,7 @@ export default function SelectReadingPage() {
                         onChange={(e) => setSelectedGenre(e.target.value)}
                     >
                         <option value="" disabled>
-                            Selecione um gênero textual
+                           {fetchLoading ? 'Carregando gêneros...' : 'Selecione um gênero textual'}
                         </option>
                         {genres.map(({ id, name }) => (
                             <option key={id} value={id}>

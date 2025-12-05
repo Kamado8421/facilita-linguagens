@@ -29,7 +29,7 @@ export default function AdvancedInsightBox({ indexRanking }: { indexRanking: num
     }, []);
 
     return (
-        <section className="bg-white rounded-2xl p-6 md:p-8 shadow-md max-w-7xl mx-auto">
+        <section className="bg-white rounded-2xl p-6 md:p-8 shadow-md  mx-auto">
             <div className="grid gap-8 md:grid-cols-3">
                 <div className="flex flex-col items-center">
                     <div className="text-center mb-6">
@@ -70,22 +70,22 @@ export default function AdvancedInsightBox({ indexRanking }: { indexRanking: num
                                 </div>
                             </div>
                         </div>
-                        <h2 className="text-center text-lg font-semibold text-green-600">
-                            Excelente desempenho!
+                        <h2 className="text-center text-lg font-semibold text-[#2b7fff]">
+                            CONTINUTE A PROGREDIR!
                         </h2>
                     </div>
 
                     <div className="flex flex-col gap-3">
                         <div className="flex items-center">
-                            <div className="w-6 h-6 bg-green-500 rounded-md mr-3"></div>
-                            <span className="text-sm text-green-700">
+                            <div className="w-6 h-6 bg-[#2b7fff] rounded-md mr-3"></div>
+                            <span className="text-sm text-[#2b7fff]">
                                 <strong>Acertos:</strong> {rightAnswers}%
                             </span>
                         </div>
                         <div className="flex items-center">
                             <div className="w-6 h-6 bg-gray-400 rounded-md mr-3"></div>
                             <span className="text-sm text-gray-700">
-                                <strong>Restante:</strong> {errorAnswers}%
+                                <strong>Erros:</strong> {errorAnswers}%
                             </span>
                         </div>
                     </div>

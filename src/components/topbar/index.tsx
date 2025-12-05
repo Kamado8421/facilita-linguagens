@@ -10,7 +10,7 @@ export default function TopBar() {
 
     const [xp, setXp] = useState(0);
     const [firstName, setFirstName] = useState('...');
-    const [profileUrl, setProfileUrl] = useState('');
+    const [profileUrl, setProfileUrl] = useState(URL_DEFAULT_PROFILE);
 
     useEffect(() => {
         (async () => {
@@ -40,7 +40,7 @@ export default function TopBar() {
                     <a href="/dashboard/profile" target="_self">
                         <Image
                             src={profileUrl}
-                            alt=""
+                            alt="Profile Picture"
                             width={50}
                             height={50}
                             style={{ objectFit: "cover", borderRadius: '50%' }}

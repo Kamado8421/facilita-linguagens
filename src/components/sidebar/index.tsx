@@ -9,6 +9,7 @@ type Route = {
     title: string;
     Icon: LucideIcon;
     path: string;
+    target?: boolean;
 };
 
 export const MENU_ROUTES: Route[] = [
@@ -16,7 +17,7 @@ export const MENU_ROUTES: Route[] = [
     { title: 'Perfil', Icon: CircleUserRoundIcon, path: '/dashboard/profile' },
     { title: 'Leitura', Icon: BookMarkedIcon, path: '/dashboard/select-reading' },
     { title: 'Campanha', Icon: TrophyIcon, path: '/dashboard/ranking' },
-    { title: 'Fazer Feedback', Icon: HandshakeIcon, path: '/' },
+    { title: 'Feedback', Icon: HandshakeIcon, path: 'https://forms.gle/BH6YJmzirzTqCutn9', target: true },
 
 ];
 
@@ -27,9 +28,9 @@ export default function Sidebar() {
             <div className="h-px w-[90%] bg-white mt-2"></div>
             <div className="p-5 w-full">
                 <ul>
-                    {MENU_ROUTES.map(({ title, Icon, path }, i) => (
+                    {MENU_ROUTES.map(({ title, Icon, path, target }, i) => (
                         <li key={i} className="hover:bg-blue-400 p-2 rounded-md mb-2">
-                            <a href={path} className="flex text-white text-[18px] items-center gap-2">
+                            <a href={path} target={target ? '_blank' : '_self'} className="flex text-white text-[18px] items-center gap-2">
                                 <Icon />
                                 <span>{title}</span>
                             </a>
