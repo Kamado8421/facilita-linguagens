@@ -40,7 +40,7 @@ export default async function RankingPage() {
                 <h1 className="text-2xl sm:text-4xl text-blue-500 font-bold mb-3">Ranking Geral</h1>
                 <p className="mb-1.5 text-gray-600 text-sm sm:text-base">
                     Mostre o quanto você está empenhado para as outras pessoas. Faça leituras e <br className="hidden sm:block" />
-                    conquistes as melhores posições nos rankings
+                    conquiste as melhores posições nos rankings
                 </p>
             </header>
 
