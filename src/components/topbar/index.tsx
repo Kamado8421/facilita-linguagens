@@ -28,24 +28,30 @@ export default function TopBar() {
     }, []);
 
     return (
-        <div className="w-full p-2 flex items-center justify-between pl-5 pr-5">
-            <h1 className="font-semibold text-blue-500 text-[14px] md:flex hidden">Projeto de Inovação <br /> IFMA - Campus Itapecuru Mirim</h1>
+        <div className="w-full p-2 flex items-center justify-between pl-6 pr-5">
+           
             <MobileSidebar />
             <Suspense fallback={<span>Buscando...</span>}>
-                <div className="flex gap-2.5 items-center">
-                    <div className="flex flex-col items-end">
-                        <span><strong>{firstName}</strong></span>
-                        <span className="text-gray-500">XP: {xp}</span>
+                <div >
+                    <div className="flex gap-2.5 items-center">
+                        <a href="/dashboard/profile" target="_self">
+                            <Image
+                                src={profileUrl}
+                                alt="Profile Picture"
+                                width={50}
+                                height={50}
+                                style={{ objectFit: "cover", borderRadius: '50%' }}
+                            />
+                        </a>
+                        <div className="flex flex-col items-start">
+                            <span><strong>{firstName}</strong></span>
+                            {/*Experiência do jogador ainda em forma de XP, pois não foi delimitado XP por nível*/}
+                            <span className="text-gray-500">XP: {xp}</span>
+                        </div>
                     </div>
-                    <a href="/dashboard/profile" target="_self">
-                        <Image
-                            src={profileUrl}
-                            alt="Profile Picture"
-                            width={50}
-                            height={50}
-                            style={{ objectFit: "cover", borderRadius: '50%' }}
-                        />
-                    </a>
+                    <h1 className="font-bold text-blue-500 text-[17px] md:flex hidden relative left-10 top-2  ">
+                        Facilita Linguagens
+                    </h1>
                 </div>
             </Suspense>
         </div>

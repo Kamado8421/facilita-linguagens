@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { fetchPerformanceData } from "./advancedInsight";
 import GenreInsightBox from "./genresInsightBox";
+import {Rocket, Play} from "lucide-react";
+import Pesquisa from "@/src/components/pesquisa";
 
 export default function AdvancedInsightBox({ indexRanking }: { indexRanking: number }) {
 
@@ -29,82 +31,52 @@ export default function AdvancedInsightBox({ indexRanking }: { indexRanking: num
     }, []);
 
     return (
-        <section className="bg-white rounded-2xl p-6 md:p-8 shadow-md  mx-auto">
-            <div className="grid gap-8 md:grid-cols-3">
-                <div className="flex flex-col items-center">
-                    <div className="text-center mb-6">
-                        <h1 className="text-2xl md:text-3xl font-bold text-gray-800">DESEMPENHO</h1>
-                        <p className="text-gray-500 mt-2 text-sm md:text-base">
-                            Afinidade ao responder questões
-                        </p>
-                    </div>
+        <section className="px-4 md:px-0">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
+                <h1 className="font-semibold text-3xl md:text-4xl mb-4 md:mb-6 tracking-tight text-center md:text-left"> Painel de Controle </h1>
+                <div className="w-full md:w-auto"> <Pesquisa/> </div>
+            </div>
 
-                    <div className="relative mb-8">
-                        <div className="flex justify-center mb-4">
-                            <div className="relative w-32 h-32 md:w-40 md:h-40">
-                                <svg className="w-full h-full" viewBox="0 0 100 100">
-                                    <circle
-                                        cx="50"
-                                        cy="50"
-                                        r="45"
-                                        fill="none"
-                                        stroke="#e5e7eb"
-                                        strokeWidth="8"
-                                    />
-                                    <circle
-                                        cx="50"
-                                        cy="50"
-                                        r="45"
-                                        fill="none"
-                                        stroke="#2b7fff"
-                                        strokeWidth="8"
-                                        strokeLinecap="round"
-                                        strokeDasharray={circumference}
-                                        strokeDashoffset={strokeOffset}
-                                        transform="rotate(-90 50 50)"
-                                        style={{ transition: "stroke-dashoffset 0.6s ease" }}
-                                    />
-                                </svg>
-                                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                                    <span className="text-2xl md:text-3xl font-bold text-gray-800">{`${Math.floor(rightAnswers)}`}%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <h2 className="text-center text-lg font-semibold text-[#2b7fff]">
-                            CONTINUTE A PROGREDIR!
-                        </h2>
-                    </div>
+            <div className="rounded-3xl md:rounded-4xl p-6 mb-7 shadow-md bg-gradient-to-r from-[#2B7FFF] to-[#4E8AD0]">
+                <div className="flex flex-col md:grid md:grid-cols-2 md:gap-0 md:items-center">
+                    
+                    <div className="w-full md:w-full flex flex-col items-center md:items-start">
 
-                    <div className="flex flex-col gap-3">
-                        <div className="flex items-center">
-                            <div className="w-6 h-6 bg-[#2b7fff] rounded-md mr-3"></div>
-                            <span className="text-sm text-[#2b7fff]">
-                                <strong>Acertos:</strong> {rightAnswers}%
+                        {/*Não tem diretório ainda*/}
+                        <div className="w-full flex justify-center md:justify-start mb-4">
+                            <span className="bg-blue-300/60 rounded-3xl text-white text-sm flex font-semibold justify-center p-2 w-44">
+                                <Rocket size={18} className="md:size-[18px]"/>
+                                <a href="" target="self" rel="noopener noreferrer" className="ml-2"> META DIÁRIA </a>
                             </span>
                         </div>
-                        <div className="flex items-center">
-                            <div className="w-6 h-6 bg-gray-400 rounded-md mr-3"></div>
-                            <span className="text-sm text-gray-700">
-                                <strong>Erros:</strong> {errorAnswers}%
-                            </span>
+                        
+                        <div className="text-white font-semibold text-2xl md:text-2xl mb-3 leading-6 md:leading-8 text-center md:text-left w-full">
+                            Bom dia Usuário X!! pronto para 
+                            <span className="block md:inline"> mais uma leitura hoje?</span>
                         </div>
+                        
+                        <span className="text-white text-sm md:text-sm text-center md:text-left w-full">
+                            Falta 321 pontos para você conquistar o Nível 6 - Broche de Ouro II
+                        </span>
                     </div>
-                </div>
-
-                <GenreInsightBox totalQuestions={totalQuestions} />
-
-                <div className="flex flex-col items-center">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                        Posição no Ranking Geral
-                    </h3>
-                    <div className="bg-indigo-100 rounded-lg py-6 px-8 mb-6 text-center w-full max-w-[220px]">
-                        <span className="text-4xl font-bold text-blue-500">{indexRanking || '-'}°</span>
+                
+                    <div className="hidden md:flex md:w-auto md:justify-end">
+                        <button className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-2xl flex justify-center items-center hover:bg-gray-50 transition-colors">
+                            <Play size={18} className="md:size-[18px]"/>
+                            <a href="/dashboard/select-reading" target="_self" className="ml-3 text-sm">Iniciar Leitura</a>
+                        </button>
                     </div>
-                    <button className="w-full max-w-[220px] bg-blue-500 hover:bg-blue-500 text-white font-semibold py-3 rounded-lg transition duration-200">
-                        <a href="/dashboard/select-reading" target="_self">Iniciar Leitura</a>
-                    </button>
                 </div>
             </div>
+
+            <div className="flex justify-center md:hidden mt-6">
+                <button className="w-full max-w-xs bg-white text-blue-600 font-semibold py-3 px-8 rounded-2xl flex justify-center items-center hover:bg-gray-50 transition-colors">
+                    <Play size={18}/>
+                    <a href="/dashboard/select-reading" target="_self" className="ml-3 text-sm">Iniciar Leitura</a>
+                </button>
+            </div>
+
+            <div className="h-12 md:h-0"></div>
         </section>
     )
 }

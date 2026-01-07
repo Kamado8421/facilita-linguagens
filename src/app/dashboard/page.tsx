@@ -20,11 +20,10 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen">
       <main className="pt-9 px-4 md:px-12">
-
-        <SimpleInsightBox />
+       
         <AdvancedInsightBox indexRanking={indexRanking!}/>
+        <SimpleInsightBox />
 
-        <div className="h-16" />
       </main>
     </div>
   );

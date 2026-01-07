@@ -10,10 +10,12 @@ export default function LogoutButton() {
                 const isExit = confirm("Tem certeza que deseja sair?");
                 if (isExit) return signOut({ redirect: true, callbackUrl: "/" })
             }}
-            className="flex items-center gap-1.5 pl-5 absolute bottom-5 left-1/2 -translate-x-1/2 w-full"
+            className="pl-5 pr-4 absolute bottom-5 left-1/2 -translate-x-1/2 w-[97%]"
         >
-            <LogOutIcon color="white" />
-            <span className="text-white">Sair</span>
+            <div className="border-1 border-gray-500 rounded-3xl flex p-3 justify-center ">
+                <LogOutIcon color="black" />
+                <span className="text-black font-bold ">Sair</span>
+            </div>
         </button>
     );
 }
