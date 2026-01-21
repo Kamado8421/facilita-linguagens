@@ -10,11 +10,11 @@ export default function LogoutButton() {
                 const isExit = confirm("Tem certeza que deseja sair?");
                 if (isExit) return signOut({ redirect: true, callbackUrl: "/" })
             }}
-            className="pl-5 pr-4 absolute bottom-5 left-1/2 -translate-x-1/2 w-[97%]"
+            className="w-full"
         >
-            <div className="border-1 border-gray-500 rounded-3xl flex p-3 justify-center ">
-                <LogOutIcon color="black" />
-                <span className="text-black font-bold ">Sair</span>
+            <div className="border-1 border-gray-400 rounded-3xl flex px-3 py-2 justify-center w-full hover:bg-gray-50 transition-colors">
+                <LogOutIcon size={18} color="black" className="flex-shrink-0"/>
+                <span className="text-black font-bold text-sm ml-2 truncate">Sair</span>
             </div>
         </button>
     );

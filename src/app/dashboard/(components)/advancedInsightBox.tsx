@@ -51,12 +51,12 @@ export default function AdvancedInsightBox({ indexRanking }: { indexRanking: num
                         </div>
                         
                         <div className="text-white font-semibold text-2xl md:text-2xl mb-3 leading-6 md:leading-8 text-center md:text-left w-full">
-                            Bom dia Usuário X!! pronto para 
+                            Bom dia <span>Usuário X!!</span> pronto para 
                             <span className="block md:inline"> mais uma leitura hoje?</span>
                         </div>
                         
                         <span className="text-white text-sm md:text-sm text-center md:text-left w-full">
-                            Falta 321 pontos para você conquistar o Nível 6 - Broche de Ouro II
+                            Falta <span>321</span> pontos para você conquistar o Nível <span>6</span> - Broche de <span>Ouro II</span>
                         </span>
                     </div>
                 

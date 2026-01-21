@@ -14,12 +14,11 @@ export default function Pesquisa() {
                         </a>
                     </span>
                     
-                    {/*Pesquisa*/}
-                    <span className="border border-gray-300 bg-white rounded-full flex items-center px-3 ml-3 h-12 md:h-11 text-gray-500 w-full max-w-md md:w-auto md:px-4">
+                    <span className="border border-gray-300 bg-white rounded-full flex items-center px-3 ml-3 h-12 md:h-11 text-gray-500 w-full max-w-md md:max-w-md lg:max-w-[500px] xl:max-w-[600px] 2xl:max-w-[700px] md:w-auto md:px-4">
                         <Search size={20} className="md:size-[18px]" />
                         <input 
                             type="search" 
-                            className="text-gray-800 ml-2 w-full text-sm md:text-base md:w-74 focus:outline-none" 
+                            className="text-gray-800 ml-2 w-full text-sm md:text-base focus:outline-none" 
                             placeholder="Buscar amizade via ID" 
                         />
                     </span>

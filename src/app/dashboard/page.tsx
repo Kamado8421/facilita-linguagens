@@ -14,18 +14,14 @@ export default function Dashboard() {
       const data = await fetchIndexRanking();
       setIndexRanking(data?.index || null);
     })()
-
   }, []);
 
   return (
     <div className="min-h-screen">
       <main className="pt-9 px-4 md:px-12">
-       
         <AdvancedInsightBox indexRanking={indexRanking!}/>
         <SimpleInsightBox />
-
       </main>
     </div>
   );
 }
-
