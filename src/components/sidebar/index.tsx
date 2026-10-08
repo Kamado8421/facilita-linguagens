@@ -18,8 +18,14 @@ export const MENU_ROUTES: Route[] = [
     { title: 'Dashboard', Icon: LayoutDashboard, path: '/dashboard' },
     { title: 'Histórico de Leitura', Icon: FileClock, path: '' },
     { title: 'Ranking', Icon: TrophyIcon, path: '/dashboard/ranking' },
-    { title: 'Conquistas', Icon: CircleStar, path: '' },
+  
     { title: 'Perfil', Icon: CircleUserRoundIcon, path: '/dashboard/profile' },
+    { 
+  title: 'Feedback',
+  Icon: HandshakeIcon,
+  path: 'https://forms.gle/BH6YJmzirzTqCutn9',
+  target: true
+}
 ];
 
 export default function Sidebar() {
