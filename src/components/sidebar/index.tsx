@@ -23,7 +23,7 @@ export const MENU_ROUTES: Route[] = [
     { 
   title: 'Feedback',
   Icon: HandshakeIcon,
-  path: 'https://forms.gle/BH6YJmzirzTqCutn9',
+  path: 'https://docs.google.com/forms/d/e/1FAIpQLSevCvdFvI7NzHpmCvzsqreYMLB1XFJefjbfR6DjXVlWKoINkQ/viewform?usp=dialog',
   target: true
 }
 ];
